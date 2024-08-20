@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <link href="/static/images/clpc.png" rel="shortcut icon">
-    <title>新一代个人综合服务平台测试工具</title>
+    <title>测试工具</title>
 </head>
 <style>
     body{
-        height: 100vh;
         text-align: center;
         background: linear-gradient(140deg,#000 0.1%, #0a1b50 30%, #2a6496 80%,orange 99%, #FAFAD2);
     }
@@ -22,7 +21,7 @@
         text-align:center;
         font-size:13px;
     }
-    input[type=text]{
+    input[type=date]{
         width: 50%;
         height: 35px;
         border: 1px solid;
@@ -33,6 +32,7 @@
         background-color: rgba(250,250,250,0.1);
         padding-left: 13px;
         margin-bottom: 23px;
+        letter-spacing: 1px;
         color: #fff;
     }
     input[type=submit]{
@@ -122,27 +122,17 @@
     <img src="/static/images/clpc.png" width="20px" height=auto />
     <h1>测&nbsp;试&nbsp;工&nbsp;具</h1>
     <!--<button class="to_home btn" >主 页</button>-->
-    <label for="name" style="color:#eee">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名&nbsp;:&nbsp;&nbsp;</label><input
-        type="text" maxlength="5" class="input-left-placeholder" style="text-align:left" name="name" id="name"
-        placeholder="请输入姓名"><br/>
-    <label for="idno" style="color:#eee">证件号码&nbsp;:&nbsp;&nbsp;</label><input type="text" maxlength="18"
+    <label for="date_start" style="color:#eee">证件有效期起期&nbsp;:&nbsp;&nbsp;</label><input
+        type="date" maxlength="18" class="input-left-placeholder" style="text-align:center" name="date_start" id="date_start"><br/>
+    <label for="date_end" style="color:#eee">证件有效期止期&nbsp;:&nbsp;&nbsp;</label><input type="date" maxlength="18"
                                                                                    class="input-left-placeholder"
-                                                                                   style="text-align:left" name="idno"
-                                                                                   id="idno"
-                                                                                   placeholder="请输入证件号码"><br/>
-    <label for="address" style="color:#eee;">证件地址&nbsp;:&nbsp;&nbsp;</label><input type="text" maxlength="11"
-                                                                                       class="input-left-placeholder"
-                                                                                       style="text-align:left;margin-bottom:3px;"
-                                                                                       name="address" id="address"
-                                                                                       placeholder="请输入证件地址"><br/>
-    <p style="margin-bottom:20px;">温馨提示：为了保证图片质量，姓名请勿输入超过<span style="color:red;">5</span>个字，地址请输入<span
-            style="color:red">11</span>个字!</p>
-    <input type="submit" id="home" value="回&nbsp;到&nbsp;主&nbsp;页" class="btn" onclick="home()" style="margin-right:20px"/>
-    <input type="submit" id="submit" value="获&nbsp;&nbsp;&nbsp;&nbsp;取" class="btn" onclick="hell()"/>
+                                                                                   style="text-align:center" name="date_end"
+                                                                                   id="date_end"><br/>
 
+    <input type="submit" id="home" value="回&nbsp;到&nbsp;主&nbsp;页" class="btn" onclick="home()" style="margin-right:20px"/>
+    <input type="submit" id="submit" value="获&nbsp;&nbsp;&nbsp;&nbsp;取" class="btn" onclick="hell()"/><br/>
     <div id="hello">
         <img src="/static/images/picmodel.png" alt="图片在此展示" width="70%" height=auto style="margin-top:10px;" id="picbase64">
-
     </div>
 
 </div>
@@ -153,11 +143,9 @@
 <!-- jQuery -->
 <script type="text/javascript">
     function isNull(){
-        var name = String(document.getElementById("name").value);
-        var idno = String(document.getElementById("idno").value);
-        var address = String(document.getElementById("address").value);
-        var list = "";
-        if (name == "" || idno == "" || address == ""){
+        var date_start = String(document.getElementById("date_start").value);
+        var date_end = String(document.getElementById("date_end").value);
+        if (date_start == "" || date_end == ""){
             return 0
         }
         else{
@@ -165,17 +153,15 @@
         }
     }
     function hell(){
-        var name = String(document.getElementById("name").value);
-        var idno = String(document.getElementById("idno").value);
-        var address = String(document.getElementById("address").value);
+        var date_start = String(document.getElementById("date_start").value);
+        var date_end = String(document.getElementById("date_end").value);
         if (isNull() == 1){
             $.ajax({
-                url: "/webtools/portrait/",
+                url: "/webtools/emblem/",
                 type: "post",
                 data: {
-                    name: name,
-                    idno: idno,
-                    address: address
+                    date_start: date_start,
+                    date_end: date_end
                 },
                 dataType: "json",
                 success: function (data) {
@@ -188,6 +174,12 @@
     }
     function home(){
         location.href = '/webtools';
+    }
+    function listenKey(){
+        var value = input.value;
+        if (value.length === 4) {
+            input.value = value.substring(0, 4) + "-";
+        }
     }
 
 
