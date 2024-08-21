@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link href="/static/images/clpc.png" rel="shortcut icon">
+    <link href="/static/images/zl.jpg" rel="shortcut icon">
     <title>测试工具</title>
 </head>
 <style>
     body{
+        height: 100vh;
         text-align: center;
         background: linear-gradient(140deg,#000 0.1%, #0a1b50 30%, #2a6496 80%,orange 99%, #FAFAD2);
     }
@@ -22,7 +23,7 @@
         font-size:13px;
     }
     input[type=date]{
-        width: 50%;
+        width: 40%;
         height: 35px;
         border: 1px solid;
         border-color: rgba(0,0,0,0);
@@ -31,9 +32,36 @@
         font-size: 100%;
         background-color: rgba(250,250,250,0.1);
         padding-left: 13px;
-        margin-bottom: 23px;
+        margin-top: 10px;
+        margin-bottom: 10px;
         letter-spacing: 1px;
         color: #fff;
+    }
+    input[type=radio]{
+        display: none;
+    }
+    .label {
+        content: "";
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        margin-right: 8px;
+        border-radius: 50%;
+        border: 2px solid #fff;
+        margin-bottom: -3px;
+    }
+    input[type=radio]:checked + .label {
+        background-color: rgba(255,255,255,0.3);
+    }
+    input[type=radio]:checked + .label::after {
+        content: '';
+        display: block;
+        height: 10px;
+        width: 10px;
+        margin-top: 2px;
+        margin-left: 2px;
+        background-color: white;
+        border-radius: 50%;
     }
     input[type=submit]{
         width: 120px;
@@ -117,35 +145,75 @@
         text-align: center;
     }
 
+
+
+
+
+
 </style>
 <div class="divclass">
-    <img src="/static/images/clpc.png" width="20px" height=auto />
-    <h1>测&nbsp;试&nbsp;工&nbsp;具</h1>
-    <!--<button class="to_home btn" >主 页</button>-->
-    <label for="date_start" style="color:#eee">证件有效期起期&nbsp;:&nbsp;&nbsp;</label><input
-        type="date" maxlength="18" class="input-left-placeholder" style="text-align:center" name="date_start" id="date_start"><br/>
-    <label for="date_end" style="color:#eee">证件有效期止期&nbsp;:&nbsp;&nbsp;</label><input type="date" maxlength="18"
-                                                                                   class="input-left-placeholder"
-                                                                                   style="text-align:center" name="date_end"
-                                                                                   id="date_end"><br/>
 
-    <input type="submit" id="home" value="回&nbsp;到&nbsp;主&nbsp;页" class="btn" onclick="home()" style="margin-right:20px"/>
+    <h1><img src="/static/images/zl.jpg" width="22px" height=auto style="margin-bottom:-3px"/>&nbsp;测试&nbsp;工&nbsp;具</h1>
+    <!--<button class="to_home btn" >主 页</button>-->
+    <span>证件有效期起期&nbsp;:&nbsp;&nbsp;</span>
+    <input
+            type="date" maxlength="18" class="input-left-placeholder" style="text-align:center" name="date_start"
+            id="date_start"/>
+    <br/>
+    <span>证件有效期止期&nbsp;:&nbsp;&nbsp;</span>
+    <input type="date" maxlength="18"
+           class="input-left-placeholder"
+           style="text-align:center" name="date_end"
+           id="date_end"/>
+    <br/>
+    <label for="forever">
+        <input id="forever" type="radio" value="长期"/>
+        <span class="label" style=""></span>长期有效
+    </label>
+    <br/>
+    <input type="submit" id="home" value="回&nbsp;到&nbsp;主&nbsp;页" class="btn" onclick="home()"
+           style="margin-right:20px"/>
     <input type="submit" id="submit" value="获&nbsp;&nbsp;&nbsp;&nbsp;取" class="btn" onclick="hell()"/><br/>
     <div id="hello">
-        <img src="/static/images/picmodel.png" alt="图片在此展示" width="70%" height=auto style="margin-top:10px;" id="picbase64">
+        <img src="/static/images/picmodel.png" alt="图片在此展示" width="70%" height=auto style="margin-top:10px;"
+             id="picbase64">
     </div>
 
 </div>
 <p class="copyright">
-    Copyright &copy; 2024 中国人寿养老. All Rights Reserved. Designed by <a style="color:#44ff44"
-                                                                            href="https://www.chinalife.com.cn">中国人寿养老</a>
+    Copyright &copy; 2024 张雷. All Rights Reserved. Designed by 张雷</a>
 </p>
 <!-- jQuery -->
+<script src="/static/js/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="/static/js/bootstrap.min.js"></script>
+<!-- Placeholder -->
+<script src="/static/js/jquery.placeholder.min.js"></script>
+<!-- Waypoints -->
+<script src="/static/js/jquery.waypoints.min.js"></script>
+<!-- Main JS -->
+<script src="/static/js/main.js"></script>
+<script src="/static/js/jsoneditor.js"></script>
+<script src="/static/js/layer.js"></script>
 <script type="text/javascript">
     function isNull(){
         var date_start = String(document.getElementById("date_start").value);
         var date_end = String(document.getElementById("date_end").value);
         if (date_start == "" || date_end == ""){
+            return 0
+        }
+        else{
+            return 1
+        }
+    }
+    function isNull(){
+        var date_start = String(document.getElementById("date_start").value);
+        var date_end = String(document.getElementById("date_end").value);
+        if (date_start == "" || date_end == ""){
+            layer.msg("都是必选项哦！",{
+                icon:5,
+                time:1500
+            })
             return 0
         }
         else{
@@ -183,17 +251,12 @@
     }
 
 
+
+
+
+
+
 </script>
-<script src="/static/js/jquery.min.js"></script>
-<!-- Bootstrap -->
-<script src="/static/js/bootstrap.min.js"></script>
-<!-- Placeholder -->
-<script src="/static/js/jquery.placeholder.min.js"></script>
-<!-- Waypoints -->
-<script src="/static/js/jquery.waypoints.min.js"></script>
-<!-- Main JS -->
-<script src="/static/js/main.js"></script>
-<script src="/static/js/jsoneditor.js"></script>
 <body>
 
 </body>

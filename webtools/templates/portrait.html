@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link href="/static/images/clpc.png" rel="shortcut icon">
+    <link href="/static/images/zl.jpg" rel="shortcut icon">
     <title>测试工具</title>
 </head>
 <style>
     body{
+        height:100vh;
         text-align: center;
         background: linear-gradient(140deg,#000 0.1%, #0a1b50 30%, #2a6496 80%,orange 99%, #FAFAD2);
     }
@@ -116,49 +117,119 @@
         text-align: center;
     }
 
+
 </style>
 <body>
-
 <div class="divclass">
-    <img src="/static/images/clpc.png" width="20px" height=auto />
-    <h1>测&nbsp;试&nbsp;工&nbsp;具</h1>
+
+    <h1><img src="/static/images/zl.jpg" width="22px" height=auto style="margin-bottom:-3px"/>&nbsp;测&nbsp;试&nbsp;工&nbsp;具</h1>
     <!--<button class="to_home btn" >主 页</button>-->
-    <label for="name" style="color:#eee">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名&nbsp;:&nbsp;&nbsp;</label><input
-        type="text" maxlength="5" class="input-left-placeholder" style="text-align:left" name="name" id="name"
-        placeholder="请输入姓名"><br/>
-    <label for="idno" style="color:#eee">证件号码&nbsp;:&nbsp;&nbsp;</label><input type="text" maxlength="18"
-                                                                                   class="input-left-placeholder"
-                                                                                   style="text-align:left" name="idno"
-                                                                                   id="idno"
-                                                                                   placeholder="请输入证件号码"><br/>
-    <label for="address" style="color:#eee;">证件地址&nbsp;:&nbsp;&nbsp;</label><input type="text" maxlength="11"
-                                                                                       class="input-left-placeholder"
-                                                                                       style="text-align:left;margin-bottom:3px;"
-                                                                                       name="address" id="address"
-                                                                                       placeholder="请输入证件地址"><br/>
+    <label for="name" style="color:#eee">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名&nbsp;:&nbsp;&nbsp;</label>
+    <input
+            type="text" maxlength="5" class="input-left-placeholder" style="text-align:left" name="name" id="name"
+            placeholder="请输入姓名"><br/>
+    <label for="idno" style="color:#eee">证件号码&nbsp;:&nbsp;&nbsp;</label>
+    <input type="text" maxlength="18"
+           class="input-left-placeholder"
+           style="text-align:left" name="idno"
+           id="idno"
+           placeholder="请输入证件号码"><br/>
+    <label for="address" style="color:#eee;">证件地址&nbsp;:&nbsp;&nbsp;</label>
+    <input type="text" maxlength="11"
+           class="input-left-placeholder"
+           style="text-align:left;margin-bottom:3px;"
+           name="address" id="address"
+           placeholder="请输入证件地址"><br/>
     <p style="margin-bottom:20px;">温馨提示：为了保证图片质量，姓名请勿输入超过<span style="color:red;">5</span>个字，地址请输入<span
             style="color:red">11</span>个字!</p>
-    <input type="submit" id="home" value="回&nbsp;到&nbsp;主&nbsp;页" class="btn" onclick="home()" style="margin-right:20px"/>
+    <input type="submit" id="home" value="回&nbsp;到&nbsp;主&nbsp;页" class="btn" onclick="home()"
+           style="margin-right:20px"/>
     <input type="submit" id="submit" value="获&nbsp;&nbsp;&nbsp;&nbsp;取" class="btn" onclick="hell()"/>
 
     <div id="hello">
-        <img src="/static/images/picmodel.png" alt="图片在此展示" width="70%" height=auto style="margin-top:20px;" id="picbase64">
+        <img src="/static/images/picmodel.png" alt="图片在此展示" width="70%" height=auto style="margin-top:20px;"
+             id="picbase64">
 
     </div>
-
 </div>
 <p class="copyright">
-    Copyright &copy; 2024 中国人寿养老. All Rights Reserved. Designed by <a style="color:#44ff44"
-                                                                            href="https://www.chinalife.com.cn">中国人寿养老</a>
+    Copyright &copy; 2024 张雷. All Rights Reserved. Designed by 张雷</a>
 </p>
+<script src="/static/js/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="/static/js/bootstrap.min.js"></script>
+<!-- Placeholder -->
+<script src="/static/js/jquery.placeholder.min.js"></script>
+<!-- Waypoints -->
+<script src="/static/js/jquery.waypoints.min.js"></script>
+<!-- Main JS -->
+<script src="/static/js/main.js"></script>
+<script src="/static/js/jsoneditor.js"></script>
+<!-- 引入 layui.js -->
+<script src="/static/js/layer.js"></script>
 <!-- jQuery -->
 <script type="text/javascript">
+    let name_titleIntId = 0,name_titleIntInfo = {1: "姓名请勿输入数字",2: "请再次检查姓名"};
+    let idno_titleNoIntId = 0,name_titleNoIntInfo = {1: "身份证号只能输入数字和字母!",2: "这是身份证号!你再看看你输的是什么?"};
+    function errorTitle(id) {
+        if(id === 3) {
+            layer.msg("系统崩溃!你丸辣!",{
+                icon:6,
+                time:1500
+            })
+            return true
+        }else {
+            return false
+        }
+    }
     function isNull(){
         var name = String(document.getElementById("name").value);
         var idno = String(document.getElementById("idno").value);
         var address = String(document.getElementById("address").value);
-        var list = "";
+        if(name && /\d/g.test(name)) {
+            name_titleIntId++;
+            if(errorTitle(name_titleIntId)) {
+                name_titleIntId--;
+                return 0
+            }
+
+            layer.msg("${name_titleIntInfo[name_titleIntId]}",{
+                icon:5,
+                time:1500
+            })
+            return 0
+        }
+        if(idno && !/\d/g.test(idno)) {
+            idno_titleNoIntId++;
+            if(errorTitle(idno_titleNoIntId)) {
+                idno_titleNoIntId--;
+                return 0
+            }
+            layer.msg("${name_titleNoIntInfo[idno_titleNoIntId]}",{
+                icon:5,
+                time:1500
+            })
+            return 0
+        }
+        if(idno && idno.length < 18 ) {
+            layer.msg("证件号请输入18位！",{
+                icon:5,
+                time:1500
+            })
+            return 0
+        }
+        if(address && address.length < 11 ) {
+            layer.msg("地址请输入11个字！",{
+                icon:5,
+                time:1500
+            })
+            return 0
+        }
         if (name == "" || idno == "" || address == ""){
+            layer.msg("都是必填项哦！",{
+                icon:5,
+                time:1500
+            })
             return 0
         }
         else{
@@ -180,11 +251,19 @@
                 },
                 dataType: "json",
                 success: function (data) {
-                    document.getElementById("picbase64").src = data['idno_base64'];
+                    layer.msg("图片生成成功",{
+                        icon:6,
+                        time:1000
+                    })
+                    $('#picbase64').attr("src",data['idno_base64']);
+                },
+                error: function(data) {
+                    layer.msg("网络异常，请联系管理员",{
+                        icon:2,
+                        time:1500
+                    })
                 }
             });
-       }
-       else{
        }
     }
     function home(){
@@ -193,15 +272,5 @@
 
 
 </script>
-<script src="/static/js/jquery.min.js"></script>
-<!-- Bootstrap -->
-<script src="/static/js/bootstrap.min.js"></script>
-<!-- Placeholder -->
-<script src="/static/js/jquery.placeholder.min.js"></script>
-<!-- Waypoints -->
-<script src="/static/js/jquery.waypoints.min.js"></script>
-<!-- Main JS -->
-<script src="/static/js/main.js"></script>
-<script src="/static/js/jsoneditor.js"></script>
 </body>
 </html>

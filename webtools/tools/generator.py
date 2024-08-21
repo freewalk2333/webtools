@@ -77,12 +77,6 @@ def generate_idcard_backside(date_start, date_end):
     draw = ImageDraw.Draw(im=image)
     date = list(str(date_start[0:4] + '.' + str(date_start[5:7]) + '.' + str(date_start[8:10]) + '-' + str(
         date_end[0:4]) + '.' + str(date_end[5:7]) + '.' + str(date_end[8:10])))
-    date_start_year = list(str(date_start[0:4]) + '.')
-    date_start_month = list(str(date_start[5:7]) + '.')
-    date_start_day = list(str(date_start[8:10]))
-    date_end_year = list(str(date_end[0:4]))
-    date_end_month = list(str(date_end[5:7]))
-    date_end_day = list(str(date_end[8:10]))
     x = 678
     for i in range(len(date)):
         if date[i].isdigit():
